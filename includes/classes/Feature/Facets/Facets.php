@@ -335,8 +335,12 @@ class Facets extends Feature {
 
 					$GLOBALS['ep_facet_aggs'][ $key ] = [];
 
-					foreach ( $agg['buckets'] as $bucket ) {
-						$GLOBALS['ep_facet_aggs'][ $key ][ $bucket['key'] ] = $bucket['doc_count'];
+					if ( ! empty( $agg['buckets'] ) ) {
+						foreach ( $agg['buckets'] as $bucket ) {
+							if ( ! empty( $bucket['key'] && ! empty( $bucket['doc_count'] ) ) ) {
+								$GLOBALS['ep_facet_aggs'][ $key ][ $bucket['key'] ] = $bucket['doc_count'];
+							}
+						}
 					}
 				}
 			}
